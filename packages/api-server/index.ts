@@ -12,8 +12,10 @@ const publicProcedure = t.procedure
 
 // Example router
 const appRouter = router({
-  hello: publicProcedure.query(() => 'Hello world!')
+  hello: publicProcedure.query(() => 'Hello world!'),
 })
+
+export type AppRouter = typeof appRouter
 
 const app = express()
 app.use(cors())
@@ -24,7 +26,7 @@ app.use(
   trpcExpress.createExpressMiddleware({
     router: appRouter,
     createContext,
-  })
+  }),
 )
 
 app.get('/', (req, res) => {
