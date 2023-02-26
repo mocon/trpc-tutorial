@@ -1,13 +1,18 @@
 import React, { useState } from 'react'
+import { useQueryClient } from '@tanstack/react-query'
 import { trpc } from '../trpc'
 
 export const CreateUser = () => {
+  const client = useQueryClient()
   const [id, setId] = useState(Date.now().toString())
   const [name, setName] = useState('')
   const { mutate } = trpc.user.createUser.useMutation()
 
   const createUser = async () => {
-    await mutate({ id, name })
+    await mutate(
+      { id, name },
+      { onSuccess: () => client.invalidateQueries(['user.getUser']) },
+    )
     setId(Date.now().toString())
     setName('')
   }
