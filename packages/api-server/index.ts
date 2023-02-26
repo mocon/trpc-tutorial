@@ -1,18 +1,13 @@
 import express from 'express'
-import { initTRPC } from '@trpc/server'
 import * as trpcExpress from '@trpc/server/adapters/express'
 import cors from 'cors'
-import { createContext, Context } from './context'
+import { t } from './trpc'
+import { createContext } from './context'
+import { userRouter, postRouter } from './routers'
 
-// Init tRPC
-const t = initTRPC.context<Context>().create()
-const router = t.router
-const middleware = t.middleware
-const publicProcedure = t.procedure
-
-// Example router
-const appRouter = router({
-  hello: publicProcedure.query(() => 'Hello world!'),
+const appRouter = t.router({
+  user: userRouter,
+  post: postRouter,
 })
 
 export type AppRouter = typeof appRouter

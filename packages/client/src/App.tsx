@@ -6,12 +6,12 @@ import { trpc } from './trpc'
 import './index.scss'
 
 const AppContent = () => {
-  const hello = trpc.hello.useQuery()
+  const { data, isFetching, error } = trpc.user.getUser.useQuery({ id: '42' })
 
   return (
     <div className='mt-10 text-3xl mx-auto max-w-6xl'>
       <pre>
-        <code>{JSON.stringify(hello.data)}</code>
+        <code>{JSON.stringify(data)}</code>
       </pre>
     </div>
   )
