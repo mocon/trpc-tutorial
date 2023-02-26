@@ -3,16 +3,14 @@ import ReactDOM from 'react-dom'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { httpBatchLink } from '@trpc/client'
 import { trpc } from './trpc'
+import { GetUser, CreateUser } from './components'
 import './index.scss'
 
 const AppContent = () => {
-  const { data, isFetching, error } = trpc.user.getUser.useQuery({ id: '42' })
-
   return (
     <div className='mt-10 text-3xl mx-auto max-w-6xl'>
-      <pre>
-        <code>{JSON.stringify(data)}</code>
-      </pre>
+      <GetUser id='2' />
+      <CreateUser />
     </div>
   )
 }
