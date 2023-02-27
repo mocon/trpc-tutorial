@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import ReactDOM from 'react-dom'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { httpBatchLink } from '@trpc/client'
+import { httpBatchLink, loggerLink } from '@trpc/client'
+import superjson from 'superjson'
 import { trpc } from './trpc'
 import { GetUser, CreateUser } from './components'
 import './index.scss'
@@ -9,7 +10,7 @@ import './index.scss'
 const AppContent = () => {
   return (
     <div className='mt-10 text-3xl mx-auto max-w-6xl'>
-      <GetUser id='2' />
+      <GetUser id='42' />
       <CreateUser />
     </div>
   )
@@ -19,7 +20,14 @@ const App = () => {
   const [queryClient] = useState(() => new QueryClient())
   const [trpcClient] = useState(() =>
     trpc.createClient({
+      transformer: superjson,
       links: [
+        loggerLink({
+          enabled: (opts) =>
+            (process.env.NODE_ENV === 'development' &&
+              typeof window !== 'undefined') ||
+            (opts.direction === 'down' && opts.result instanceof Error),
+        }),
         httpBatchLink({
           url: 'http://localhost:8080/trpc',
           headers: {

@@ -1,23 +1,17 @@
 import express from 'express'
-import * as trpcExpress from '@trpc/server/adapters/express'
 import cors from 'cors'
+import { createExpressMiddleware } from '@trpc/server/adapters/express'
 import { createContext } from './context'
-import { appRouter } from './routers'
+import { appRouter as router } from './routers'
 
-export type AppRouter = typeof appRouter
+export type AppRouter = typeof router
 
 const app = express()
 const port = 8080
 
 app.use(cors())
 
-app.use(
-  '/trpc',
-  trpcExpress.createExpressMiddleware({
-    router: appRouter,
-    createContext,
-  }),
-)
+app.use('/trpc', createExpressMiddleware({ router, createContext }))
 
 app.get('/', (req, res) => {
   res.send('Hello from api-server')
