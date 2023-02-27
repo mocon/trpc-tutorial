@@ -1,20 +1,15 @@
 import express from 'express'
 import * as trpcExpress from '@trpc/server/adapters/express'
 import cors from 'cors'
-import { t } from './trpc'
 import { createContext } from './context'
-import { userRouter, postRouter } from './routers'
-
-const appRouter = t.router({
-  user: userRouter,
-  post: postRouter,
-})
+import { appRouter } from './routers'
 
 export type AppRouter = typeof appRouter
 
 const app = express()
-app.use(cors())
 const port = 8080
+
+app.use(cors())
 
 app.use(
   '/trpc',
