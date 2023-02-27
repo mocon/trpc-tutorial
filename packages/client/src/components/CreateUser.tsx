@@ -9,10 +9,7 @@ export const CreateUser = () => {
   const { mutate } = trpc.user.createUser.useMutation()
 
   const createUser = async () => {
-    await mutate(
-      { id, name },
-      { onSuccess: () => client.invalidateQueries(['user.getUser']) },
-    )
+    await mutate({ id, name }, { onSuccess: () => client.invalidateQueries(['user.getUser']) })
     setId(Date.now().toString())
     setName('')
   }

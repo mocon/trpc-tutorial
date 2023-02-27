@@ -1,8 +1,8 @@
-import { router, publicProcedure } from '../trpc'
+import { router, publicProcedure, authedProcedure } from '../trpc'
 import { z } from 'zod'
 
 export const userRouter = router({
-  getUser: publicProcedure
+  getUser: authedProcedure
     .input(
       z
         .object({

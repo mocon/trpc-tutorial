@@ -24,14 +24,14 @@ const App = () => {
       links: [
         loggerLink({
           enabled: (opts) =>
-            (process.env.NODE_ENV === 'development' &&
-              typeof window !== 'undefined') ||
+            (process.env.NODE_ENV === 'development' && typeof window !== 'undefined') ||
             (opts.direction === 'down' && opts.result instanceof Error),
         }),
         httpBatchLink({
           url: 'http://localhost:8080/trpc',
           headers: {
-            'Content-Type': 'application/json',
+            'content-type': 'application/json',
+            'x-session': '42',
           },
         }),
       ],
