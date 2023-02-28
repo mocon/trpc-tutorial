@@ -15,7 +15,7 @@ export const postRouter = router({
 
       return {
         id: input?.id ?? '42',
-        title: 'First post',
+        title: 'Best post',
       }
     }),
 })

@@ -1,7 +1,19 @@
 # tRPC `express` API server
 
-Build Docker image:
+#### Build Docker image:
 
 ```sh
 docker build . -t mocon/trpc-tutorial
+```
+
+#### Development
+
+```sh
+docker compose -f docker-compose.dev.yml up
+```
+
+#### Production
+
+```sh
+docker compose up --build
 ```
