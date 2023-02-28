@@ -1,4 +1,4 @@
-FROM node:16-alpine as build
+FROM node:16-alpine as development
 
 WORKDIR /usr/src/app
 COPY package*.json .
@@ -14,6 +14,6 @@ ENV PORT=8080
 WORKDIR /usr/src/app
 COPY package*.json .
 RUN npm install --omit=dev
-COPY --from=build /usr/src/app/dist ./dist
+COPY --from=development /usr/src/app/dist ./dist
 EXPOSE ${PORT}
 CMD node dist/index.js
