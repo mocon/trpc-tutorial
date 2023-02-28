@@ -4,8 +4,6 @@ import { createExpressMiddleware } from '@trpc/server/adapters/express'
 import { createContext } from './context'
 import { appRouter as router } from './routers'
 
-export type AppRouter = typeof router
-
 const app = express()
 const port = 8080
 
@@ -20,3 +18,5 @@ app.get('/', (req, res) => {
 app.listen(port, () => {
   console.log(`api-server listening at http://localhost:${port}`)
 })
+
+export type AppRouter = typeof router
