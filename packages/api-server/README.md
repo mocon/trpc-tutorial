@@ -3,7 +3,7 @@
 #### Build Docker image:
 
 ```sh
-docker build . -t mocon/trpc-tutorial
+docker build -t trpc-express .
 ```
 
 #### Development
